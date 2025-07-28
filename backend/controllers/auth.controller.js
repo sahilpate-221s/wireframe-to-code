@@ -40,7 +40,7 @@ const signup = async (req, res) => {
 
     await newUser.save();
 
-    const token = createToken({ id: newUser._id, email: newUser.email });
+    const token = createToken({ _id: newUser._id, email: newUser.email });
     setTokenCookie(res, token);
 
     return res.status(201).json({
@@ -90,8 +90,9 @@ const login = async (req, res) => {
       });
     }
 
-    const token = createToken({ id: user._id, email: user.email });
+    const token = createToken({ _id: user._id, email: user.email });
     setTokenCookie(res, token);
+    // console.log("this is the token key ",token);
 
     return res.status(200).json({
       success: true,
@@ -101,6 +102,8 @@ const login = async (req, res) => {
         username: user.username,
         email: user.email,
       },
+      token: token,
+
     });
   } catch (error) {
     return res.status(500).json({
@@ -204,7 +207,7 @@ const updateProfile = async (req, res) => {
 
 
 
-const changePassword = async (req, res) => {
+async function changePassword(req, res) {
   try {
     const userId = req.user.id;
     const { currentPassword, newPassword, confirmNewPassword } = req.body;
@@ -254,7 +257,7 @@ const changePassword = async (req, res) => {
       error: error.message,
     });
   }
-};
+}
 
 const deleteAccount = async (req, res) => {
   try {
@@ -285,4 +288,12 @@ const deleteAccount = async (req, res) => {
   }
 };
 
-export default { signup, login, showProfile, logout, updateProfile , changePassword, deleteAccount };
+export {
+  signup,
+  login,
+  showProfile,
+  logout,
+  updateProfile,
+  changePassword,
+  deleteAccount,
+};

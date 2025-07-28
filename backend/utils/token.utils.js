@@ -11,8 +11,9 @@ export const createToken = (payload) => {
 export const setTokenCookie = (res, token) => {
   res.cookie('token', token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production' ? true : false,
     maxAge: 3600000, // 1 hour
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+    message: "Token cookie set successfully",
   });
 };

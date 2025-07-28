@@ -16,7 +16,7 @@ import {
 } from "../controllers/auth.controller.js";
 
 // Route for user login
-router.post("/login", auth, login);
+router.post("/login", login);
 
 // Route for user signup
 router.post("/signup", signup);
@@ -28,10 +28,14 @@ router.get("/profile", auth, showProfile);
 router.post("/logout", auth, logout);
 
 // Route to update user profile
-router.put("/profile", auth, updateProfile);
+router.put("/update-profile", auth, updateProfile);
 
 // Route to change user password
 router.put("/change-password", auth, changePassword);
 
 // Route to delete user account
 router.delete("/delete-account", auth, deleteAccount);
+
+
+
+export default router;

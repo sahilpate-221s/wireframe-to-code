@@ -1,5 +1,10 @@
 import mongoose from 'mongoose';
 
+const suggestionSchema = new mongoose.Schema({
+  suggestionText: { type: String, required: true },
+  codeSnippet: { type: String, required: false },
+});
+
 const wireframeSchema = new mongoose.Schema(
   {
     user: {
@@ -9,21 +14,31 @@ const wireframeSchema = new mongoose.Schema(
     },
     imageUrl: {
       type: String,
-      required: true,
+      required: false,
+    },
+    textPrompt: {
+      type: String,
+      required: false,
     },
     language: {
       type: String,
       required: true,
-      enum: ['react', 'next', 'htmlcss', 'angular', 'php', 'javascript'],
+      enum: ['react', 'next', 'htmlcss', 'angular', 'php', 'javascript', 'others'],
     },
     aiUsed: {
       type: String,
       required: true,
+      enum: ['ChatGPT', 'Copilot', 'Gemini'],
     },
     generatedCode: {
       type: String,
-      default: '',
+      required: false,
     },
+    livePreview: {
+      type: String,
+      required: false,
+    },
+    suggestions: [suggestionSchema],
   },
   {
     timestamps: true,

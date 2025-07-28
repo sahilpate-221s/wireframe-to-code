@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const aiLogSchema = new mongoose.Schema(
+const aiRequestLogSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -12,26 +12,30 @@ const aiLogSchema = new mongoose.Schema(
       ref: 'Wireframe',
       required: false,
     },
-    aiProvider: {
+    aiModel: {
       type: String,
       required: true,
+      description: 'Name of the AI model used (e.g., ChatGPT, Copilot, Gemini)',
     },
     requestPayload: {
       type: Object,
       required: true,
+      description: 'Payload sent to the AI model',
     },
     responsePayload: {
       type: Object,
       required: true,
+      description: 'Response received from the AI model',
     },
     status: {
       type: String,
       enum: ['success', 'failure'],
       required: true,
     },
-    errorMessage: {
+    errorDetails: {
       type: String,
       default: '',
+      description: 'Error message if the AI request failed',
     },
   },
   {
@@ -39,6 +43,6 @@ const aiLogSchema = new mongoose.Schema(
   }
 );
 
-const AiLog = mongoose.model('AiLog', aiLogSchema);
+const AiRequestLog = mongoose.model('AiRequestLog', aiRequestLogSchema);
 
-export default AiLog;
+export default AiRequestLog;
